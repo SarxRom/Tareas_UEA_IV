@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonido</title>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+</head>
+<body>
+    <a-scene>
+        <!--sistema de gestión de assets-->
+        <a-assets>
+            <audio id="cancion" src="assets/sonido/cancion" preload="auto"></audio>
+        </a-assets>
+        
+        <!--jugador-->
+        <a-camera>
+            <a-cursor></a-cursor>
+        </a-camera>
+        <a-entity id="cancion" geometry="primitive: plane" material="color: blue"
+          position="0 1 -4" sound="src: url(assets/sonido/cancion); autoplay: false; on: click;"></a-entity>
+    </a-scene>
+</body>
+</html>

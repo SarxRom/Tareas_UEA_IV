@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sonido pausa</title>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script>
+        AFRAME.registerComponent('controlAudio'{
+            init:function (){
+                let botonControl= this.el;
+                botonControl.addEventListener('click', (){
+                    let metodo = ev.srcElement.id; 
+                    
+                    console.log(metodo);
+                })
+            }
+    });
+    </script>
+</head>
+<body>
+    <a-scene>
+        <!--sistema de gestión de assets-->
+        <a-assets>
+            <audio id="cancion" src="assets/sonido/cancion" preload="auto"></audio>
+        </a-assets>
+
+        <!--jugador-->
+        <a-camera>
+            <a-cursor></a-cursor>
+        </a-camera>
+        <a-entity id="cancion" geometry="primitive: plane" material="color: violet"
+          position="0 0.5 -4" sound="src: #cancion; autoplay: false;"></a-entity>
+
+          <!--controles-->
+          <a-box id="play" color="green" position="-1 0.2 -3" scale="0.3 0.3 0.3" controlAudio></a-box>
+          <a-box id="pause" color="black" position="0 0.2 -3" scale="0.3 0.3 0.3" controlAudio></a-box>
+          <a-box id="stop" color="red" position="1 0.2 -3" scale="0.3 0.3 0.3" controlAudio></a-box>
+    </a-scene>
+</body>
+</html>
