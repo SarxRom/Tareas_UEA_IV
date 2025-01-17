@@ -10,25 +10,24 @@
 <body>
     <a-scene>
         <a-assets>
-        <a-asset-item id="navmesh" src="assets/Blender/malla.glb"></a-asset-item>
+         <a-asset-item id="navmesh" src="assets/Blender/malla.glb"></a-asset-item>
         </a-assets>
 
-        <!-- Player. -->
-      <a-entity id="rig"
-      movement-controls="constrainToNavMesh: true;
-                         controls: checkpoint, gamepad, trackpad, keyboard, nipple;"
-      position="-7 0 21">
-<a-entity camera
+     <!-- Player. -->
+             <a-entity id="rig"
+                    movement-controls="constrainToNavMesh: true;controls: checkpoint, gamepad, trackpad, keyboard, nipple;"
+                 position="-7 0 21">
+       <a-entity camera
         position="0 1.6 0"
         look-controls="pointerLockEnabled: true">
-<a-cursor></a-cursor>
-</a-entity>
-</a-entity>
+     <a-cursor></a-cursor>
+     </a-entity>
+      </a-entity>
 
 <!-- Nav mesh. -->
 <a-entity nav-mesh
 normal-material
-visible="false"
+visible="true"
 position="0 0 -4.076"
 gltf-model="#navmesh"></a-entity>
 
