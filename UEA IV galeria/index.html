@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etéreo</title>
+    <!--Link para abrir A-Frame-->
+   <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+   <!--Link para lectura de entornos o ambientes de A-Frame-->
+   <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+   <!--Link para poder abrir la biblioteca A-Frame Extras-->
+   <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.2/dist/aframe-extras.min.js"></script>
+</head>
+<body>
+
+    <!--Sonido-->
+    <a-scene> 
+      <a-assets>
+        <audio id="cancion" src="assets/sonido/cancion.mp3" preload="auto"></audio>
+        <video id="video" src="assets/imágenes/Etéro 1.mp4" preload="auto" loop="true"></video>
+      </a-assets>
+
+      <a-sound id="audio-entity" src="#cancion" position="0 2 0"></a-sound>
+
+      <a-box id="audio-button" 
+             position="-0.266 1 17.844" scale="0.7 0.7 0.3"
+             color="#ffe6e6" 
+             depth="0.5" 
+             height="0.5" 
+             width="1"
+             text="value: Activar Audio; align: center; color: #ffe6e6;">
+      </a-box>
+
+      <a-plane id="video-plane" 
+               position="-14.836 1 -16.559" rotation="0 45.000 0"
+               width="4" 
+               height="2.5" 
+               material="src: #video; opacity: 0.8;">
+      </a-plane>
+
+      <a-box id="video-button" 
+             position="-14.982 1 -12.164" rotation="0 45 0" 
+             color="#ffe6e6" 
+             depth="0.5" 
+             height="0.5" 
+             width="1"
+             text="value: Activar Video; align: center; color: #ffe6e6;">
+      </a-box>
+
+      <!--Ambiente de etéreo-->
+      <a-entity environment = "preset: forest; dressingAmount: 500"> </a-entity> 
+
+      <!--Camara y jugador-->
+      <a-entity id="jugador" movement-controls="constrainToNavMesh: true;controls: checkpoint, gamepad, trackpad, keyboard, nipple;" 
+        position="-3.094 1 11.747">
+
+      <a-entity id="camara"
+            camera 
+            position="-3.094 1 11.747"
+            look-controls="pointerLockEnabled: true">
+            <a-cursor></a-cursor>
+          </a-entity>
+        </a-entity>
+      <!--Estructura Hospital-->
+      <a-box static-body="sphereRadius: NaN" color="#929380" position="-10 3 7" rotation="0 -90 0" scale="14 7.5 0.600"></a-box>
+      <a-box static-body="sphereRadius: NaN" color="#929380" position="-7.810 3 0.290" rotation="0 0 0" scale="5 7.5 0.600"></a-box>
+      <a-box static-body="sphereRadius: NaN" color="#929380" position="1.780 3 0.290" rotation="0 0 0" scale="5 7.5 0.600"></a-box>
+      <a-box static-body="sphereRadius: NaN" color="#929380" position="4 3 7" rotation="0 90 0" scale="14 7.5 0.600"></a-box>
+      <a-box static-body="sphereRadius: NaN" color="#929380" position="-7.810 3 13.700" rotation="0 -180 0" scale="5 7.5 0.600"></a-box>
+      <a-box static-body="sphereRadius: NaN" color="#929380" position="1.780 3 13.700" rotation="0 -180 0" scale="5 7.5 0.600"></a-box>
+      <a-box static-body="sphereRadius: NaN" color="#929380" position="-3.180 5 13.700" rotation="0 -180 0" scale="13 3.5 0.600"></a-box>
+      <a-box static-body="sphereRadius: NaN" color="#929380" position="-3.180 5 0.290" rotation="0 -180 0" scale="13 3.5 0.600"></a-box> 
+      <a-box static-body="sphereRadius: NaN" color="#ff3333" position="-2.992 6.230 13.950" rotation="0 -180 0" scale="14.720 1 0.300"></a-box>
+      <a-box static-body="sphereRadius: NaN" color="#929380" position="-3.147 6.410 6.967" rotation="0 -180 0" scale="14.020 0.250 13.700"></a-box>
+      
+      <!--Texto-->
+      <a-entity text= "value: HOSPITAL; font:assets/Fonts/custom1-msdf.json; color: white;font-image:assets/Fonts/custom1.png; negate:false" scale="23 23 20" position="6.193 6.259 14.136"></a-entity>
+      <a-entity text= "value: Bienvenidos a Etéreo...\nUn lugar en donde todo es posible...; font:assets/Fonts/custom1-msdf.json; color: black;font-image:assets/Fonts/custom1.png; negate:false" scale="23 23 20" position="1.051 3.873 -11.645"></a-entity>
+      <a-entity text= "value: Para activar y desactivar el audio y video da un clik en los cubos color blanco; font:assets/Fonts/custom1-msdf.json; color: black;font-image:assets/Fonts/custom1.png; negate:false" scale="3 3 20" position="1.194 1.267 14.315"></a-entity>
+    </a-entity>        
+    </a-scene>
+
+    <script>
+      const audioEntity = document.querySelector('#audio-entity');
+      const audioButton = document.querySelector('#audio-button');
+      const videoElement = document.querySelector('#video');
+      const videoButton = document.querySelector('#video-button');
+
+      let isAudioPlaying = false;
+      let isVideoPlaying = false;
+
+      audioButton.addEventListener('click', () => {
+        if (isAudioPlaying) {
+          audioEntity.components.sound.stopSound();
+          audioButton.setAttribute('text', 'value: Activar Audio');
+          audioButton.setAttribute('color', '#FF0000');
+        } else {
+          audioEntity.components.sound.playSound();
+          audioButton.setAttribute('text', 'value: Desactivar Audio');
+          audioButton.setAttribute('color', '#00FF00');
+        }
+        isAudioPlaying = !isAudioPlaying;
+      });
+
+
+      videoButton.addEventListener('click', () => {
+        if (isVideoPlaying) {
+          videoElement.pause();
+          videoButton.setAttribute('text', 'value: Activar Video');
+          videoButton.setAttribute('color', '#FF0000');
+        } else {
+          videoElement.play();
+          videoButton.setAttribute('text', 'value: Desactivar Video');
+          videoButton.setAttribute('color', '#00FF00');
+        }
+        isVideoPlaying = !isVideoPlaying;
+      });
+    </script>
+</body>
+</html>
